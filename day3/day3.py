@@ -1,64 +1,56 @@
-input_instructions = ['R8','U5','L5','D3']
-start_loc = [1,1]
-grid = [4,4]
-
-def create_grid(gridspec):
-    print("Creating grid...")
-    grid = [[0 for i in range(gridspec[1])] for j in range(gridspec[0])]
-    for row in grid:
-        print(row)
-
-    return grid
-
-def print_grid(grid):
-    print("Printing grid...")
-    for row in grid:
-        print(row)
-
-test_instructions = ['R4', 'U4']
+instructions = ['R8','U5','L5','D3']
+instructions2 = ['U7', 'R6', 'D4', 'L4']
 
 
-def move_route(instructions):
+def traverse_route(instructions):
 
-    gridspec = [4,4]
-    my_grid = create_grid(gridspec)
-    start_loc = [gridspec[0]-1, 0]
+    curr_coords = (0,0)
+    traversed_coords = []
 
-    for item in instructions:
+    for instruction in instructions:
 
-        if item[0] == 'R':
-            print("Moving right {} spaces".format(item[1:]))
+        # Traverse right
+        if instruction[0] == 'R':
 
-            # Log route taken with 1s
-            for i in range(int(item[1:])):
-                my_grid[start_loc[0]][i] = 1
+            for i in range(int(instruction[1:])):
+                traversed = (curr_coords[0] + (i+1), curr_coords[1])
+                traversed_coords.append(traversed)
 
-            # Update current position
-            start_loc[1] = start_loc[1] + int(item[1:])-1
-            print("New x position of {}".format(start_loc[1]))
+            curr_coords = (curr_coords[0] + int(instruction[1:]), curr_coords[1])
+
+        # Traverse left
+        elif instruction[0] == 'L':
+
+            for i in range(int(instruction[1:])):
+                traversed = (curr_coords[0] - (i + 1), curr_coords[1])
+                traversed_coords.append(traversed)
+
+            curr_coords = (curr_coords[0] - int(instruction[1:]), curr_coords[1])
+
+        # Traverse up
+        if instruction[0] == 'U':
+
+            for i in range(int(instruction[1:])):
+                traversed = (curr_coords[0], curr_coords[1] + (i + 1))
+                traversed_coords.append(traversed)
+
+            curr_coords = (curr_coords[0], curr_coords[1] + int(instruction[1:]))
+
+        # Traverse left
+        elif instruction[0] == 'D':
+
+            for i in range(int(instruction[1:])):
+                traversed = (curr_coords[0], curr_coords[1] - (i + 1))
+                traversed_coords.append(traversed)
+
+            curr_coords = (curr_coords[0], curr_coords[1] - int(instruction[1:]))
+
+    return traversed_coords
 
 
+def get_shortest_intersect(route1, route2):
 
+    intersections = set(route1) & set(route2)
 
-
-        elif item[0] == 'U':
-            print("Moving up {} spaces".format(item[1:]))
-
-            # Log route taken with 1s
-            for i in range(int(item[1:])):
-                my_grid[start_loc[0] - i][start_loc[1]] = 1
-
-            # Update current position
-            start_loc[1] = start_loc[1] + int(item[1:])
-            print("New y position of {}".format(start_loc[1]))
-
-        # elif item[0] == 'D':
-        #     start_loc[1] = start_loc[1] - int(item[1:])
-
-        else:
-            print("Error")
-
-
-    print_grid(my_grid)
-
-move_route(test_instructions)
+    for item in intersections:
+        sum(item)
