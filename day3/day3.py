@@ -1,13 +1,13 @@
-def read_input(filename)
+def read_input(filename):
 
     # Read the input file
     input_file = open(filename, 'r')
 
     # Clear and new lines and split up commands
-    instruction_lists = [line.strip('\n').split(',') for line in input_instructions]
+    instruction_lists = [line.strip('\n').split(',') for line in input_file]
 
     # Map the separate instruction lists to 2 separate lists
-    instructions1, instructions2 = map(list, zip(*instruction_lists))
+    instructions1, instructions2 = instruction_lists[0], instruction_lists[1]
 
     # input_instructions = open('day3/input.txt', 'r')
     # instructions = [line.strip('\n').split(',') for line in input_instructions]
@@ -72,7 +72,7 @@ def get_shortest_intersect(route1, route2):
 
 
 
-instructions1, instructions2 = read_input('day3/input.txt')
+instructions1, instructions2 = read_input('input.txt')
 route1 = traverse_route(instructions1)
 route2 = traverse_route(instructions2)
 get_shortest_intersect(route1, route2)
