@@ -1,6 +1,9 @@
 instructions = ['R8','U5','L5','D3']
 instructions2 = ['U7', 'R6', 'D4', 'L4']
 
+instructions3 = ['R75','D30','R83','U83','L12','D49','R71','U7','L72']
+instructions4 = ['U62','R66','U55','R34','D71','R55','D58','R83']
+
 
 def traverse_route(instructions):
 
@@ -48,9 +51,19 @@ def traverse_route(instructions):
     return traversed_coords
 
 
+route1 = traverse_route(instructions)
+route2 = traverse_route(instructions2)
+route3 = traverse_route(instructions3)
+route4 = traverse_route(instructions4)
+
+
+
 def get_shortest_intersect(route1, route2):
 
     intersections = set(route1) & set(route2)
+    abs_intersections = [(abs(i[0]), abs(i[1])) for i in intersections]
 
-    for item in intersections:
-        sum(item)
+    return print(sum(min(abs_intersections, key=sum)))
+
+get_shortest_intersect(route1,route2)
+get_shortest_intersect(route3,route4)
