@@ -1,8 +1,19 @@
-instructions = ['R8','U5','L5','D3']
-instructions2 = ['U7', 'R6', 'D4', 'L4']
+def read_input(filename)
 
-instructions3 = ['R75','D30','R83','U83','L12','D49','R71','U7','L72']
-instructions4 = ['U62','R66','U55','R34','D71','R55','D58','R83']
+    # Read the input file
+    input_file = open(filename, 'r')
+
+    # Clear and new lines and split up commands
+    instruction_lists = [line.strip('\n').split(',') for line in input_instructions]
+
+    # Map the separate instruction lists to 2 separate lists
+    instructions1, instructions2 = map(list, zip(*instruction_lists))
+
+    # input_instructions = open('day3/input.txt', 'r')
+    # instructions = [line.strip('\n').split(',') for line in input_instructions]
+
+    return instructions1, instructions2
+
 
 
 def traverse_route(instructions):
