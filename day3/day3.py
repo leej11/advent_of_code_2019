@@ -62,12 +62,6 @@ def traverse_route(instructions):
     return traversed_coords
 
 
-route1 = traverse_route(instructions)
-route2 = traverse_route(instructions2)
-route3 = traverse_route(instructions3)
-route4 = traverse_route(instructions4)
-
-
 
 def get_shortest_intersect(route1, route2):
 
@@ -76,5 +70,9 @@ def get_shortest_intersect(route1, route2):
 
     return print(sum(min(abs_intersections, key=sum)))
 
-get_shortest_intersect(route1,route2)
-get_shortest_intersect(route3,route4)
+
+
+instructions1, instructions2 = read_input('day3/input.txt')
+route1 = traverse_route(instructions1)
+route2 = traverse_route(instructions2)
+get_shortest_intersect(route1, route2)
