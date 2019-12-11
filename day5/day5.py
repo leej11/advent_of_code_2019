@@ -2,47 +2,77 @@
 # An intcode program
 # First Number: "Opcode" [1,2,99], indicates what to do
 
-import itertools
+test_list = [1002,4,3,4,33]
 
-# Create list of possible values for address 1 and 2 for part 2
-pre_list1 = list(range(0,100))
-pre_list2 = list(range(0,100))
-my_list = pre_list1 + pre_list2
-my_tuples_list = []
+x = 0
 
-for pair in itertools.combinations(my_list,2):
-    my_tuples_list.append(pair)
-
-
-
-for (i, j) in my_tuples_list:
-    test_list = [1,i,j,3,1,1,2,3,1,3,4,3,1,5,0,3,2,1,6,19,1,9,19,23,1,6,23,27,1,10,27,31,1,5,31,35,2,6,35,39,1,5,39,43,1,5,43,47,2,47,6,51,1,51,5,55,1,13,55,59,2,9,59,63,1,5,63,67,2,67,9,71,1,5,71,75,2,10,75,79,1,6,79,83,1,13,83,87,1,10,87,91,1,91,5,95,2,95,10,99,2,9,99,103,1,103,6,107,1,107,10,111,2,111,10,115,1,115,6,119,2,119,9,123,1,123,6,127,2,127,10,131,1,131,6,135,2,6,135,139,1,139,5,143,1,9,143,147,1,13,147,151,1,2,151,155,1,10,155,0,99,2,14,0,0]
-
-    x = 0
+def intcode_computer(test_list):
 
     # This while loop performs the value re-assignment described in the challenge
     while x < len(test_list) - 1:
 
         # Opcode 1 means sum the following 2 numbers and reassign to the location of the
         # 3rd number
-        if test_list[x] == 1:
-            value = test_list[test_list[x+1]] + test_list[test_list[x+2]]
-            test_list[test_list[x+3]] = value
-            print("x = 1 done, now increasing by 4")
-            x+=4
-            print("{}".format(x))
+        if str(test_list[x])[-2:] == 01:
+
+            # Parameter 1
+            # Immediate mode
+            if str(test_list[x])[-3] == 1:
+                param1 = test_list[x + 1]
+
+            # Position mode
+            else:
+                param1 = test_list[test_list[x + 1]]
+
+
+            # Parameter 2
+            # Immediate mode
+            if str(test_list[x])[-4] == 1:
+                param2 = test_list[x + 2]
+
+            # Position mode
+            else:
+                param2 = test_list[test_list[x + 2]]
+
+
+            # Parameter 3
+            # Immediate mode
+            if str(test_list[x])[-5] == 1:
+                param3 = test_list[x + 3]
+
+            # Position mode
+            else:
+                param3 = test_list[test_list[x + 3]]
+
+        value = param1 + param2
+        test_list[param3] = value
+        x += 4
+
+
 
         # Opcode 2 means multiple the following 2 numbers and reassign to the location of the
         # 3rd number
-        elif test_list[x] == 2:
+        elif str(test_list[x])[-2:] == 02:
             value = test_list[test_list[x+1]] * test_list[test_list[x+2]]
             test_list[test_list[x+3]] = value
             print("x = 2 done, now increasing by 4")
             x += 4
             print("{}".format(x))
 
+        # Opcode 3 - Take a single integer as an input and save to the position given by that number
+        elif str(test_list[x])[-2:] == 03:
+            value = test_list[x+1]
+            test_list[test_list[x+1]] = value
+            x += 2
+
+        # Opcode 4 - Output the value of the position of the parameter
+        elif str(test_list[x])[-2:] == 04:
+            value = test_list[x+1]
+            output = test_list[value]
+            x += 2
+
         # Opcode 99 means just do nothing except increase along the list of numbers
-        elif test_list[x] == 99:
+        elif str(test_list[x])[-2:] == 99:
             print("code 99, increasing by 4")
             x += 4
             print("{}".format(x))
