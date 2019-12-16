@@ -17,7 +17,7 @@ def intcode_computer(input, test_list):
 
         if str(test_list[x])[-1:] == '1':
 
-            print("Starting opcode {} at position {}".format(str(test_list[x])[-1:],x))
+            print("Starting opcode {} at position {}".format(str(test_list[x]),x))
             # Corresponds to 00001
             if len(str(test_list[x])) == 1:
                 param1 = test_list[test_list[x + 1]]
@@ -31,11 +31,11 @@ def intcode_computer(input, test_list):
             # Corresponds to 01001 or 01101
             elif len(str(test_list[x])) == 4:
 
-                if str(test_list[x])[1] == 1:
+                if str(test_list[x])[1] == '1':
                     param1 = test_list[x + 1]
                     param2 = test_list[x + 2]
 
-                elif str(test_list[x])[1] == 0:
+                elif str(test_list[x])[1] == '0':
                     param1 = test_list[test_list[x + 1]]
                     param2 = test_list[x + 2]
 
@@ -45,7 +45,7 @@ def intcode_computer(input, test_list):
             value = param1 + param2
             test_list[param3] = value
 
-            print("Completed opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Completed opcode {} at position {}".format(str(test_list[x]), x))
             x += 4
 
 
@@ -54,7 +54,7 @@ def intcode_computer(input, test_list):
         # 3rd number
         elif str(test_list[x])[-1:] == '2':
 
-            print("Starting opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Starting opcode {} at position {}".format(str(test_list[x]), x))
             # Corresponds to 00001
             if len(str(test_list[x])) == 1:
                 param1 = test_list[test_list[x + 1]]
@@ -68,20 +68,20 @@ def intcode_computer(input, test_list):
             # Corresponds to 01001 or 01101
             elif len(str(test_list[x])) == 4:
 
-                if str(test_list[x])[1] == 1:
+                if str(test_list[x])[1] == '1':
                     param1 = test_list[x + 1]
                     param2 = test_list[x + 2]
 
-                elif str(test_list[x])[1] == 0:
+                elif str(test_list[x])[1] == '0':
                     param1 = test_list[test_list[x + 1]]
                     param2 = test_list[x + 2]
 
-            param3 = test_list[x + 3]
+            param3 = test_list[x + 3]6069343
 
             value = param1 * param2
             test_list[param3] = value
 
-            print("Completed opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Completed opcode {} at position {}".format(str(test_list[x]), x))
             x += 4
 
 
@@ -89,11 +89,11 @@ def intcode_computer(input, test_list):
         # Take a single integer as an input and save to the position given by that number
 
         elif str(test_list[x])[-1:] == '3':
-            print("Starting opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Starting opcode {} at position {}".format(str(test_list[x]), x))
 
             test_list[test_list[x+1]] = input
 
-            print("Completed opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Completed opcode {} at position {}".format(str(test_list[x]), x))
             x += 2
 
 
@@ -102,7 +102,7 @@ def intcode_computer(input, test_list):
         # Output the value of the position of the parameter
 
         elif str(test_list[x])[-1:] == '4':
-            print("Starting opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Starting opcode {} at position {}".format(str(test_list[x]), x))
             value = test_list[test_list[x+1]]
 
             # Corresponds to 00004
@@ -122,7 +122,7 @@ def intcode_computer(input, test_list):
 
             x += 2
 
-            print("Completed opcode {} at position {}".format(str(test_list[x])[-1:], x))
+            print("Completed opcode {} at position {}".format(str(test_list[x]), x))
 
         # Opcode 99 means just do nothing except increase along the list of numbers
         elif str(test_list[x])[-2:] == '99':
